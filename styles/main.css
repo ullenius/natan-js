@@ -8,10 +8,11 @@ main {
 }
 
 textarea {
+  font-size: 60px;
   position: fixed;
   right: 200px;
   top: 0px;
-  height: 500px;
+  height: 200px;
   width: 500px;
   border: none;
   background-color: rgb(247,247,247);

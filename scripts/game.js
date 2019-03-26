@@ -1,14 +1,22 @@
 var calculator = {
-  userAnswer: 0,
+  userInput: [], // stored as a string
+  sum: 0,
   correctAnswer: 0
 };
 
 function addDigit(number) {
-  calculator.userAnswer += number;
-  console.log(calculator.userAnswer);
+  calculator.userInput.push(number);
+  console.log(calculator.userInput);
+  console.log("length = " + calculator.userInput.length);
 }
 
 function refreshTextbox() {
   var textbox = document.getElementById("textbox");
-  textbox.value = calculator.userAnswer;
+
+  for (var pos in calculator.userInput) {
+    calculator.sum += calculator.userInput[pos];
+  }
+  textbox.value = calculator.sum;
+  calculator.userInput = []; // emptying the array
+  console.log("contents of array: " + calculator.userInput);
 }
