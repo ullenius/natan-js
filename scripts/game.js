@@ -5,5 +5,10 @@ var calculator = {
 
 function addDigit(number) {
   calculator.userAnswer += number;
-  alert(calculator.userAnswer);
+  console.log(calculator.userAnswer);
+}
+
+function refreshTextbox() {
+  var textbox = document.getElementById("textbox");
+  textbox.value = calculator.userAnswer;
 }
