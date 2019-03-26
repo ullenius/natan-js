@@ -1,0 +1,33 @@
+body {
+  background-color: #b6b6ff;
+  /* margin: 0 auto; */
+  mad-width: 1200px;
+}
+main {
+  padding: 60px;
+}
+
+textarea {
+  position: fixed;
+  right: 200px;
+  top: 0px;
+  height: 500px;
+  width: 500px;
+  border: none;
+  background-color: rgb(247,247,247);
+  padding: 10px; /* 10 pixels on ALL sides */
+}
+
+button {
+  padding: 30px;
+  width: 180px;
+  border: none;
+  font-size: 40px;
+  font-family: Effra, Calibri, Helvetica, Arial, sans-serif;
+  background-color: rgb(168,109,147);
+  color: rgb(250,250,250); /* white */
+}
+
+button:hover {
+  background-color: rgb(117,41,90);
+}
