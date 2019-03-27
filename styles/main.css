@@ -38,10 +38,24 @@ button:hover {
   text-align: center;
   font-size: 40px;
   width: 700px;
-  height: 200px;
+  max-height: 200px;
+  float:right;
+  margin-right: 30%;
+  padding-left:10px;
+  padding-right:10px;
+  border solid 1px black;
+  background-color: hotpink;
+}
+
+.message {
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 20px;
+  width: 700px;
+  height: 70px;
   float:right;
   margin-right: 30%;
   padding:10px;
   border solid 1px black;
-  background-color: hotpink;
+  background-color: #e6cf8b;
 }
