@@ -32,3 +32,20 @@ function addToTextbox(number) {
   var textbox = document.getElementById("textbox");
   textbox.value += number;
 }
+
+function generateQuestion() {
+  let numberOne = Math.ceil(Math.random() * 10);
+  let numberTwo = Math.ceil(Math.random() * 29);
+
+  var question = document.getElementById("question");
+  question.innerHTML = numberOne + " + " + numberTwo + " = ?";
+
+  calculator.correctAnswer = numberOne + numberTwo;
+
+  console.log(numberOne);
+  console.log(numberTwo);
+  console.log(calculator.correctAnswer);
+}
+
+
+generateQuestion();
