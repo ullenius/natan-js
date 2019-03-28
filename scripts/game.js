@@ -1,4 +1,4 @@
-/* written by Anosh D. Ullenius 2019-03-29 */
+/* Written by Anosh D. Ullenius 2019-03-29 */
 
 var calculator = {
   userInput: [], // stored as a string
@@ -11,11 +11,16 @@ var calculator = {
   }
 };
 
-var repetitions;
-var counter = 0;
-var points = 0;
+let repetitions;
+let counter = 0;
+let points = 0;
 window.onload = showButton(false,"calculate-button");
 
+/*
+ * This function is asynchronously called by the user
+ * when clicking on the digit-buttons
+ *
+ */
 function addDigit(number) {
   calculator.userInput.push(number);
   addToTextbox(number);
@@ -24,6 +29,13 @@ function addDigit(number) {
   console.log("length = " + calculator.userInput.length);
 }
 
+/*
+ * this method is asynchronously called by the
+ * user when clicking the "KLAR"-button (swedish for 'done/finished')
+ *
+ * iterates through the input array. Converts it to a number
+ * also contains the iteration loop for the game
+ */
 function calculate() {
   for (var pos in calculator.userInput) {
     calculator.sum += '' + calculator.userInput[pos];
@@ -51,15 +63,17 @@ function calculate() {
     points = 0; // set them to default values once again
     counter = 0;
   }
-
 }
 
-/* prints win/lose message if answer is correct */
+/*
+* Helper function.
+* Prints win/lose message based on validity of the answer
+*
+*/
 function printVictoryMessage(result) {
 
   let victoryMessage = document.getElementById("victory-message");
   let pointsMessage = document.getElementById("points");
-
   let message;
 
   console.log("result === " + result);
@@ -75,6 +89,7 @@ function printVictoryMessage(result) {
   pointsMessage.innerHTML = "Poäng: " + points + "/" + Number(counter+1) // 3 == total number of questions
 }
 
+/* Helper function */
 function clearMessagebox() {
   let victoryMessage = document.getElementById("victory-message");
   let pointsMessage = document.getElementById("points");
@@ -82,16 +97,19 @@ function clearMessagebox() {
   pointsMessage.innerHTML = "";
 }
 
+/* Helper function */
 function clearTextbox() {
-  var textbox = document.getElementById("textbox");
+  let textbox = document.getElementById("textbox");
   textbox.value = "";
 }
 
+/* Helper function */
 function addToTextbox(number) {
-  var textbox = document.getElementById("textbox");
+  let textbox = document.getElementById("textbox");
   textbox.value += number;
 }
 
+/* generates the mathematical problem and puts it in the DOM */
 function generateQuestion() {
 
   let randomNumbers = getTwoRandomNumbers();
@@ -130,10 +148,13 @@ function generateQuestion() {
   console.log("answer: " + calculator.correctAnswer);
 }
 
-// switches visibility on and off for the start-button
+/*
+* Helper function
+* Switches visibility on and off for the start-button
+*/
 function showButton(showButton,buttonName) { // boolean
 
-  var button = document.getElementById(buttonName);
+  let button = document.getElementById(buttonName);
   if (showButton === true) {
     button.style.visibility = "visible";
   } else {
@@ -142,9 +163,8 @@ function showButton(showButton,buttonName) { // boolean
 }
 
 /*
-  * random comparator, used for randomized sorting (lambda)
-  *
-  *
+  * Random comparator, used for randomized sorting (lambda)
+  * is used by getTwoRandomNumbers
   */
 var randomComparator = function(numberOne, numberTwo) {
 
@@ -159,7 +179,10 @@ var randomComparator = function(numberOne, numberTwo) {
   }
 }
 
-// returns array
+/*
+ * Returns an array
+ *
+*/
 function getTwoRandomNumbers() {
 
   const UPPER_LIMIT_ONE = 10;
@@ -173,6 +196,14 @@ function getTwoRandomNumbers() {
   return randomNumbers;
 }
 
+/*
+  * Starts the game and cleans up DOM's and used variables
+  * in the calculator-object.
+  *
+  * This function is called asynchronously by the user
+  * when clicking the Start-button.
+  *
+ */
 function startGame(numberOfQuestions) {
 
   console.log("numberOfQuestions = " + numberOfQuestions);
