@@ -159,6 +159,20 @@ var randomComparator = function(numberOne, numberTwo) {
   }
 }
 
+// returns array
+function getTwoRandomNumbers() {
+
+  const UPPER_LIMIT_ONE = 10;
+  const UPPER_LIMIT_TWO = 29;
+  let randomNumbers = [];
+
+  randomNumbers[0] = Math.ceil(Math.random() * UPPER_LIMIT_ONE);
+  randomNumbers[1] = Math.ceil(Math.random() * UPPER_LIMIT_TWO);
+  randomNumbers.sort(randomComparator);
+
+  return randomNumbers;
+}
+
 function startGame(numberOfQuestions) {
 
   console.log("numberOfQuestions = " + numberOfQuestions);
