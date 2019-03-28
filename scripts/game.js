@@ -1,6 +1,8 @@
+/* written by Anosh D. Ullenius 2019-03-29 */
+
 var calculator = {
   userInput: [], // stored as a string
-  sum: 0,
+  sum: 0, // change name to userAnswer or similar
   correctAnswer: 0
 };
 
@@ -80,13 +82,36 @@ function generateQuestion() {
   let numberTwo = Math.ceil(Math.random() * 29);
 
   var question = document.getElementById("question");
-  question.innerHTML = numberOne + " + " + numberTwo + " = ?";
 
-  calculator.correctAnswer = numberOne + numberTwo;
+  /**
+  * Randomize addition or subtraction. 50% proability
+  * Generates a random number 0 or 1
+  * Javascript converts it to a boolean, 0 == false, 1 == true
+  *
+  * true == do addition
+  * false == do subtraction
+  *
+  * The program avoids negative results when doing subtraction
+  * in order to make it easier for kids
+  *
+  */
+  if (Math.floor(Math.random() *2)) { // true or false, 0 or 1
+      question.innerHTML = numberOne + " + " + numberTwo + " = ?";
+      calculator.correctAnswer = numberOne + numberTwo;
+  } else {
+
+    if (numberOne >= numberTwo) {
+      question.innerHTML = numberOne + " - " + numberTwo + " = ?";
+      calculator.correctAnswer = numberOne - numberTwo;
+    } else {
+      question.innerHTML = numberTwo + " - " + numberOne + " = ?";
+      calculator.correctAnswer = numberTwo - numberOne;
+    }
+  }
 
   console.log(numberOne);
   console.log(numberTwo);
-  console.log(calculator.correctAnswer);
+  console.log("answer: " + calculator.correctAnswer);
 }
 
 generateQuestion();

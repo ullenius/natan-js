@@ -21,8 +21,9 @@ textarea {
 }
 
 button {
+  text-align: center;
   padding: 30px;
-  width: 180px;
+  width: 200px;
   border: none;
   font-size: 50px;
   font-family: Effra, Calibri, Helvetica, Arial, sans-serif;
