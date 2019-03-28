@@ -3,7 +3,12 @@
 var calculator = {
   userInput: [], // stored as a string
   sum: 0, // change name to userAnswer or similar
-  correctAnswer: 0
+  correctAnswer: 0,
+  clear : function() { // restore everything to default values
+    this.userInput = [];
+    this.sum = 0;
+    this.correctAnswer = 0;
+  }
 };
 
 var repetitions;
@@ -33,7 +38,6 @@ function calculate() {
   calculator.sum = 0; // reset value before next turn
 
   clearTextbox();
-//  clearMessagebox();
 
   console.log("counter == " + counter);
   console.log("repetitions == " + repetitions);
@@ -68,7 +72,14 @@ function printVictoryMessage(result) {
   }
 
   victoryMessage.innerHTML = message;
-  pointsMessage.innerHTML = "Poäng: " + points + "/" + Number(repetitions+1) // 3 == total number of questions
+  pointsMessage.innerHTML = "Poäng: " + points + "/" + Number(counter+1) // 3 == total number of questions
+}
+
+function clearMessagebox() {
+  let victoryMessage = document.getElementById("victory-message");
+  let pointsMessage = document.getElementById("points");
+  victoryMessage.innerHTML = "";
+  pointsMessage.innerHTML = "";
 }
 
 function clearTextbox() {
@@ -133,7 +144,9 @@ function startGame(numberOfQuestions) {
 
   console.log("numberOfQuestions = " + numberOfQuestions);
   repetitions = numberOfQuestions - 1;
+  calculator.clear();
 
+  clearMessagebox();
   clearTextbox();
   showButton(false,"start-button");
   showButton(true,"calculate-button");
