@@ -33,6 +33,7 @@ function calculate() {
   calculator.sum = 0; // reset value before next turn
 
   clearTextbox();
+//  clearMessagebox();
 
   console.log("counter == " + counter);
   console.log("repetitions == " + repetitions);
@@ -43,6 +44,8 @@ function calculate() {
   } else {
     showButton(true,"start-button");
     showButton(false,"calculate-button");
+    points = 0; // set them to default values once again
+    counter = 0;
   }
 
 }
@@ -66,14 +69,6 @@ function printVictoryMessage(result) {
 
   victoryMessage.innerHTML = message;
   pointsMessage.innerHTML = "Poäng: " + points + "/" + Number(repetitions+1) // 3 == total number of questions
-}
-
-
-// displays sum in textbox
-function printSum() {
-
-  var textbox = document.getElementById("textbox");
-  textbox.value = calculator.sum;
 }
 
 function clearTextbox() {
@@ -138,6 +133,8 @@ function startGame(numberOfQuestions) {
 
   console.log("numberOfQuestions = " + numberOfQuestions);
   repetitions = numberOfQuestions - 1;
+
+  clearTextbox();
   showButton(false,"start-button");
   showButton(true,"calculate-button");
   generateQuestion(); // debug-stuff
