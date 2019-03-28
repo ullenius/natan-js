@@ -93,10 +93,11 @@ function addToTextbox(number) {
 }
 
 function generateQuestion() {
-  let numberOne = Math.ceil(Math.random() * 10);
-  let numberTwo = Math.ceil(Math.random() * 29);
 
-  var question = document.getElementById("question");
+  let randomNumbers = getTwoRandomNumbers();
+  const numberOne = randomNumbers[0]; // 2do: change these to upper-case
+  const numberTwo = randomNumbers[1];
+  let question = document.getElementById("question");
 
   /**
   * Randomize addition or subtraction. 50% proability
@@ -150,8 +151,7 @@ var randomComparator = function(numberOne, numberTwo) {
   if (numberOne === undefined || numberTwo === undefined) {
     alert("Incorrect input!");
   }
-
-  if ((Math.floor(Math.random() *2) == true) {
+  if ((Math.floor(Math.random() *2)) == true) {
     return numberOne - numberTwo;
   }
   else {
