@@ -1,7 +1,7 @@
 body {
   background-color: #b6b6ff;
   margin: 0 auto;
-  mad-width: 1200px;
+  max-width: 1200px;
     font-family: Effra, Calibri, Helvetica, Arial, sans-serif;
 }
 main {
