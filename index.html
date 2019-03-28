@@ -3,7 +3,8 @@
   <head>
     <title>Number Game for Kids</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="styles/main.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="styles/main.css" media="screen and (min-width: 769px)" />
+    <link rel="stylesheet" type="text/css" href="styles/paddan.css" media="screen and (device-width: 768)" />
   </head>
 
   <body>
@@ -28,7 +29,7 @@
         <button type="button" onClick="calculate()">KLAR</button>
       </span>
         <span id="start-button">
-          <button type="button" onClick="startGame(1)">START</button>
+          <button type="button" onClick="startGame(10)">START</button>
         </span>
       </p>
 
@@ -43,8 +44,11 @@
         <h1 id="question"></h1>
       </div>
       <textarea id="textbox"></textarea>
-
     </main>
+
+    <footer>
+      <!--- birthday message here -->
+    </footer>
 
     <script src="scripts/game.js"></script>
 
