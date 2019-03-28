@@ -6,8 +6,10 @@ var calculator = {
   correctAnswer: 0
 };
 
-var repetitions = 0;
+var repetitions;
+var counter = 0;
 var points = 0;
+window.onload = showButton(false,"calculate-button");
 
 function addDigit(number) {
   calculator.userInput.push(number);
@@ -32,10 +34,15 @@ function calculate() {
 
   clearTextbox();
 
-  // repeat 3 times
-  if (repetitions < 3) {
-    repetitions++;
+  console.log("counter == " + counter);
+  console.log("repetitions == " + repetitions);
+
+  if (counter < repetitions) {
+    counter++;
     generateQuestion();
+  } else {
+    showButton(true,"start-button");
+    showButton(false,"calculate-button");
   }
 
 }
@@ -56,7 +63,7 @@ function printVictoryMessage(result) {
   }
 
   victoryMessage.innerHTML = message;
-  pointsMessage.innerHTML = "Poäng: " + points + "/" + Number(repetitions+1); // 3 == total number of questions
+  pointsMessage.innerHTML = "Poäng: " + points + "/" + Number(repetitions+1) // 3 == total number of questions
 }
 
 
@@ -114,4 +121,22 @@ function generateQuestion() {
   console.log("answer: " + calculator.correctAnswer);
 }
 
-generateQuestion();
+// switches visibility on and off for the start-button
+function showButton(showButton,buttonName) { // boolean
+
+  var button = document.getElementById(buttonName);
+  if (showButton === true) {
+    button.style.visibility = "visible";
+  } else {
+    button.style.visibility = "hidden";
+  }
+}
+
+function startGame(numberOfQuestions) {
+
+  console.log("numberOfQuestions = " + numberOfQuestions);
+  repetitions = numberOfQuestions - 1;
+  showButton(false,"start-button");
+  showButton(true,"calculate-button");
+  generateQuestion(); // debug-stuff
+}

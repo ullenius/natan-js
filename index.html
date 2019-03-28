@@ -24,8 +24,12 @@
       </p>
       <p>
         <button type="button" onClick="addDigit(0)">0</button>
+        <span id="calculate-button" class="calculate-span">
         <button type="button" onClick="calculate()">KLAR</button>
-        <button type="button" id="start-button" onClick="startGame(5)">START</button>
+      </span>
+        <span id="start-button">
+          <button type="button" onClick="startGame(1)">START</button>
+        </span>
       </p>
 
       <div class="message">
@@ -36,7 +40,7 @@
       </div>
 
       <div class="question">
-        <h1 id="question">1 + 1 = ?</h1>
+        <h1 id="question"></h1>
       </div>
       <textarea id="textbox"></textarea>
 
