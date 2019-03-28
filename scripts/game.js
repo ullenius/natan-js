@@ -50,10 +50,12 @@ function calculate() {
 /* prints win/lose message if answer is correct */
 function printVictoryMessage(result) {
 
-  let victoryMessage = document.getElementById("victoryMessage");
+  let victoryMessage = document.getElementById("victory-message");
   let pointsMessage = document.getElementById("points");
 
   let message;
+
+  console.log("result === " + result);
 
   if (result === true) {
     message = "Rätt svar! Bra jobbat Natan! :)";
