@@ -85,3 +85,7 @@ img {
   right: 20%;
   width: 10%;
 }
+/* works in normal browsers, not the ipad */
+footer {
+  visibility: hidden;
+}

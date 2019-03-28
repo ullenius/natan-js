@@ -83,3 +83,11 @@ img {
   right: 20%;
   width: 10%;
 }
+/* works in normal browsers, not the ipad */
+footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding:1%;
+  font-size: small;
+}
