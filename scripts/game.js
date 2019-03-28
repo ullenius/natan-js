@@ -140,6 +140,25 @@ function showButton(showButton,buttonName) { // boolean
   }
 }
 
+/*
+  * random comparator, used for randomized sorting (lambda)
+  *
+  *
+  */
+var randomComparator = function(numberOne, numberTwo) {
+
+  if (numberOne === undefined || numberTwo === undefined) {
+    alert("Incorrect input!");
+  }
+
+  if ((Math.floor(Math.random() *2) == true) {
+    return numberOne - numberTwo;
+  }
+  else {
+    return numberTwo - numberOne;
+  }
+}
+
 function startGame(numberOfQuestions) {
 
   console.log("numberOfQuestions = " + numberOfQuestions);
