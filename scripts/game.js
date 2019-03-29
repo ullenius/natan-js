@@ -79,14 +79,14 @@ function printVictoryMessage(result) {
   console.log("result === " + result);
 
   if (result === true) {
-    message = "Rätt svar! Bra jobbat Natan! :)";
+    message = "Correct answer! Well done :)";
     points++;
   } else {
-    message = "Fel svar :(";
+    message = "Wrong answer :(";
   }
 
   victoryMessage.innerHTML = message;
-  pointsMessage.innerHTML = "Poäng: " + points + "/" + Number(counter+1) // 3 == total number of questions
+  pointsMessage.innerHTML = "Score: " + points + "/" + Number(counter+1) // 3 == total number of questions
 }
 
 /* Helper function */
