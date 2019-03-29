@@ -43,7 +43,7 @@ textarea {
   font-size: 7em;
   position: absolute;
   top: 15%;
-  right: 40%;
+  right: 35%;
   height: 18%;
   width: 15%;
   border: none;
@@ -56,7 +56,7 @@ textarea {
   font-size: 3.5em;
   position: absolute;
   top: 45%;
-  right: 20%;
+  right: 15%;
   height: 18%;
   width: 40%;
   padding-bottom: 1%;
@@ -69,7 +69,7 @@ textarea {
   text-align: center;
   position: absolute;
   top: 68%;
-  right: 20%;
+  right: 15%;
   /* height: 22%; */
   width: 40%;
   font-size: 1.2em;
