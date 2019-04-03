@@ -2,11 +2,11 @@
 
 var calculator = {
   userInput: [], // stored as a string
-  sum: 0, // change name to userAnswer or similar
+  userAnswer: 0, // change name to userAnswer or similar
   correctAnswer: 0,
   clear : function() { // restore everything to default values
     this.userInput = [];
-    this.sum = 0;
+    this.userAnswer = 0;
     this.correctAnswer = 0;
   }
 };
@@ -38,16 +38,16 @@ function addDigit(number) {
  */
 function calculate() {
   for (var pos in calculator.userInput) {
-    calculator.sum += '' + calculator.userInput[pos];
+    calculator.userAnswer += '' + calculator.userInput[pos];
   }
   calculator.userInput = []; // emptying the array
   console.log("contents of array: " + calculator.userInput);
 
-  calculator.sum = Number(calculator.sum);
-  console.log("sum === " + calculator.sum);
+  calculator.userAnswer = Number(calculator.userAnswer);
+  console.log("userAnswer === " + calculator.userAnswer);
 
-  printVictoryMessage(calculator.sum === calculator.correctAnswer); // send boolean to this method
-  calculator.sum = 0; // reset value before next turn
+  printVictoryMessage(calculator.userAnswer === calculator.correctAnswer); // send boolean to this method
+  calculator.userAnswer = 0; // reset value before next turn
 
   clearTextbox();
 
