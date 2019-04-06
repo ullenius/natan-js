@@ -47,6 +47,36 @@ function clearQuestionbox() {
   view.displayQuestion("");
   view.displayScore("");
 }
+/*
+ * Random comparator, used for randomized sorting (lambda)
+ * is used by getTwoRandomNumbers
+ */
+var randomComparator = function(numberOne, numberTwo) {
+  
+	if (numberOne === undefined || numberTwo === undefined) {
+		alert("Incorrect input!");
+	}
+	if ((Math.floor(Math.random() *2)) == true) {
+		return numberOne - numberTwo;
+	}
+	else {
+		return numberTwo - numberOne;
+	}
+}
+/*
+ * Returns an array
+ *
+ */
+function getTwoRandomNumbers() {
+	const UPPER_LIMIT_ONE = 10;
+	const UPPER_LIMIT_TWO = 29;
+	let randomNumbers = [];
+
+	randomNumbers[0] = Math.ceil(Math.random() * UPPER_LIMIT_ONE);
+	randomNumbers[1] = Math.ceil(Math.random() * UPPER_LIMIT_TWO);
+	randomNumbers.sort(randomComparator);
+	return randomNumbers;
+}
 
 // TEST CODE
 view.displayMessage("hello world");
