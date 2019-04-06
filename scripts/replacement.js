@@ -34,9 +34,19 @@ let view = {
   clearTextbox : function() {
   let textbox = document.getElementById("textbox");
   textbox.value = "";
+  },
+  showButton : function(showButton,buttonName) { // boolean
+    /*
+    * Switches visibility on and off for button
+    */
+    var button = document.getElementById(buttonName);
+    if (showButton === true) {
+      button.style.visibility = "visible";
+    } else {
+      button.style.visibility = "hidden";
+    }
   }
 };
-
 
 // helper functions
 function clearMessagebox() {
@@ -52,7 +62,7 @@ function clearQuestionbox() {
  * is used by getTwoRandomNumbers
  */
 var randomComparator = function(numberOne, numberTwo) {
-  
+
 	if (numberOne === undefined || numberTwo === undefined) {
 		alert("Incorrect input!");
 	}
