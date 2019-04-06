@@ -29,13 +29,13 @@ let view = {
   },
   addToTextbox : function(digit) { // adds digit when user clicks a button
     let textbox = document.getElementById("textbox");
-		textbox.value += number;
+		textbox.value += digit;
   },
   clearTextbox : function() {
   let textbox = document.getElementById("textbox");
   textbox.value = "";
   },
-  showButton : function(showButton,buttonName) { // boolean
+  showButton : function(showButton,buttonName) { // (string,boolean)
     /*
     * Switches visibility on and off for button
     */
@@ -93,6 +93,9 @@ view.displayMessage("hello world");
 view.displayScore("Poäng: 100");
 view.displayQuestion("1 +1 = ?");
 
-// view.clearTextbox();
+view.clearTextbox();
 // clearQuestionbox();
 // clearMessagebox();
+
+view.addToTextbox(5);
+view.addToTextbox(1);
