@@ -1,16 +1,15 @@
 /* natan-js - number game for kids
 * https://www.github.com/ullenius/natan-js
+*
 * Written by Anosh D. Ullenius in 2019
 *
 */
 const DEFAULT_NUMBER = -1;
-const NO_QUESTIONS = 10;
 
 let model = {
   userInput : [""],
   numberOne : DEFAULT_NUMBER,
   numberTwo : DEFAULT_NUMBER,
-  numQuestions: NO_QUESTIONS,
   subtraction: false, // if true, addition will be used
   clear : function() { // resets values to default
     this.numberOne = DEFAULT_NUMBER;
@@ -26,7 +25,6 @@ let model = {
      *
      * Parameter *MUST* to be a Number, Strings will fail due to use of
      * strict comparison
-     *
      */
     if (this.subtraction) {
       return (answer === (this.numberOne - this.numberTwo));
@@ -107,15 +105,14 @@ let view = {
   }
 };
 
-// helper functions
-function clearMessagebox() {
+// Helper function - clears everything in the View
+function clearAll() {
+  view.clearTextbox();
   view.displayMessage("");
+  view.displayQuestion("");
+  view.displayScore("Score: " + controller.points + "/" + controller.no_questions);
 }
 
-function clearQuestionbox() {
-  view.displayQuestion("");
-  view.displayScore("");
-}
 /*
  * Random comparator, used for randomized sorting (lambda)
  * is used by getTwoRandomNumbers
@@ -164,9 +161,10 @@ let controller = {
   points : 0,
   no_questions: 10, // default value
   startGame : function(no_questions) { // when start-button is clicked
-    view.clearTextbox();
-    this.counter = 1;
+    this.counter = 0;
     this.points = 0;
+    this.no_questions = no_questions;
+    clearAll(); // clears the view
     view.showButton(false,"start-button");
     view.showButton(true,"calculate-button")
     this.playGame();
@@ -174,11 +172,12 @@ let controller = {
   playGame : function() {
     model.clear(); // resetting model
     view.clearTextbox(); // clear input box
+    this.counter++;
 
     if (this.counter <= this.no_questions) {
       model.generateQuestion();
       console.log("counter === " + this.counter); // debug message
-    } else if (this.counter === this.no_questions) { // game is finished
+    } else if (this.counter > this.no_questions) { // game is finished
       view.showButton(true,"start-button");
       view.showButton(false,"calculate-button");
     }
@@ -191,8 +190,7 @@ let controller = {
     } else { // wrong answer
       view.displayMessage("Wrong answer :(");
     }
-    this.counter++;
-    view.displayScore("Score: " + this.points + "/" + NO_QUESTIONS);
+    view.displayScore("Score: " + this.points + "/" + this.no_questions);
     this.playGame(); // continue with the next question
   },
   addDigit : function(digit) {
@@ -202,24 +200,4 @@ let controller = {
 };
 
 // event handler when page loads for the first time
-window.onload = controller.startGame();
-
-// TEST CODE -------------------------------------------------------
-// view.displayMessage("hello world");
-// view.displayScore("Poäng: 100");
-// view.displayQuestion("1 +1 = ?");
-//
-view.clearTextbox();
-// clearQuestionbox();
-// clearMessagebox();
-//
-// view.addToTextbox(5);
-// view.addToTextbox(1);
-//
-// let numbers = [1,1,5];
-// console.log(parseGuess(numbers));
-//
-// model.generateQuestion();
-console.log("model === " + JSON.stringify(model));
-
-// END OF TEST CODE -------------------------------------------------------
+window.onload = controller.startGame(10);
