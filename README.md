@@ -12,25 +12,25 @@ A web based app I made for my nephew. Intended to teach young kids basic arithme
 * HTML 5
 * 100% vanilla Javascript (ES6)
 
-## Description
+## How It Works
 * The game generates 10 random maths problems one-by-one.
 * It randomizes the numbers with a a number range of 1-11 for the **first number** and 1-30 for the **second number**
 
-Since children don't know the validity of basic mathematical proofs that adults take for granted. For example:
+Children do not know the validity of basic mathematical proofs that adults take for granted. Also, negative-numbers can be quite tricky (too abstract) for young kids. Considering this the game is consciously designed to never generate problems where the answer is less than 0.
+
 
 ```
 a + b == b + a
 
 ```
-
-It also randomizes the output of the ordering. However, it does not generate problems where the answer is less than 0. This is because the concept of negative-numbers is too abstract for young kids.
+*(This proof is self-evident for adults. But not for young children)*
 
 
 ## Usage
-- Click Start-button to Start the game
-- Enter digits by clicking on the buttons
-- Submit your answer using the 'DONE'-button
-- Game ends after 10 rounds
+1. Click Start-button to Start the game
+1. Enter digits by clicking on the buttons
+1. Submit your answer using the 'DONE'-button
+1. Game ends after 10 rounds
 
 ## Development
 The code is written using OOP (Object Oriented Programming) and uses the MVC-pattern (Model View Controller).
