@@ -1,7 +1,13 @@
+/* natan-js - number game for kids
+* https://www.github.com/ullenius/natan-js
+* Written by Anosh D. Ullenius in 2019
+*
+*/
 const DEFAULT_NUMBER = -1;
-const QUESTIONS_PER_GAME = 10;
+const NO_QUESTIONS_PER_GAME = 10;
 
 let model = {
+  userInput : [],
   numberOne : DEFAULT_NUMBER,
   numberTwo : DEFAULT_NUMBER,
   numQuestions: QUESTIONS_PER_GAME,
@@ -77,7 +83,7 @@ let view = {
   let textbox = document.getElementById("textbox");
   textbox.value = "";
   },
-  showButton : function(showButton,buttonName) { // (string,boolean)
+  showButton : function(showButton,buttonName) { // (boolean,string)
     /*
     * Switches visibility on and off for button
     */
@@ -140,7 +146,34 @@ function parseGuess(guess) {
   return total;
 }
 
-// TEST CODE
+let controller = {
+  counter : 0,
+  points : 0,
+  startGame : function() { // when start-button is clicked
+    model.clear();
+    this.counter = 0;
+    this.points = 0;
+    view.showButton(false,"start-button");
+    view.showButton(true,"calculate-button")
+    this.playGame();
+  },
+  playGame : function() {
+    if (counter < NO_QUESTIONS_PER_GAME) {
+      counter++;
+      model.generateQuestion();
+    }
+  },
+  submitAnswer : function() {
+    let userAnswer = parseGuess(model.userInput);
+    if (model.isAnswerCorrect(userAnswer)) {
+      this.points++;
+
+    }
+  }
+}
+
+
+// TEST CODE -------------------------------------------------------
 view.displayMessage("hello world");
 view.displayScore("Poäng: 100");
 view.displayQuestion("1 +1 = ?");
@@ -157,3 +190,5 @@ console.log(parseGuess(numbers));
 
 model.generateQuestion();
 console.log("model === " + JSON.stringify(model));
+
+// END OF TEST CODE -------------------------------------------------------
