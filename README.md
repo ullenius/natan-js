@@ -10,7 +10,11 @@ A web based app I made for my nephew. Intended to teach young kids basic arithme
 * Input using touchscreen/mouse :computer_mouse:
 * Tablet support (especially ipad) using custom CSS
 * HTML 5
-* 100 % vanilla Javascript
+* 100% vanilla Javascript (ES6)
+
+## Description
+* The game generates 10 random maths problems one-by-one.
+* It randomizes the numbers with a a number range of 1-11 for the **first number** and 1-30 for the **second number**
 
 Since children don't know the validity of basic mathematical proofs that adults take for granted. For example:
 
@@ -21,11 +25,16 @@ a + b == b + a
 
 It also randomizes the output of the ordering. However, it does not generate problems where the answer is less than 0. This is because the concept of negative-numbers is too abstract for young kids.
 
+
 ## Usage
-* Click Start-button to Start the game
-* The game generates 10 random maths problems one-by-one.
-* It randomizes the numbers with a a number range of 1-11 for the **first number** and 1-30 for the **second number**
-* Writes victory message when correct answer is given.
+- Click Start-button to Start the game
+- Enter digits by clicking on the buttons
+- Submit your answer using the 'DONE'-button
+- Game ends after 10 rounds
+
+## Development
+The code is written using OOP (Object Oriented Programming) and uses the MVC-pattern (Model View Controller).
+
 
 ## :penguin: Attribution
 The image of birthday Tux is courtesy of [Pixabay](https://pixabay.com/images/id-161107/)
