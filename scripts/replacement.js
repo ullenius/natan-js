@@ -5,11 +5,18 @@ let model = {
   numberOne : DEFAULT_NUMBER,
   numberTwo : DEFAULT_NUMBER,
   numQuestions: QUESTIONS_PER_GAME,
-  operator : '+', // if true, addition will be used
+  subtraction: false, // if true, addition will be used
   clear : function() { // resets values to default
     this.numberOne = DEFAULT_NUMBER;
     this.numberTwo = DEFAULT_NUMBER;
-  }
+  },
+  isAnswerCorrect : function(answer) { // returns boolean
+    if (subtraction) {
+      return (answer === (numberOne - numberTwo));
+    }
+    // addition
+    return (answer === (numberOne + numberTwo));
+  },
 };
 
 // View in MVC
@@ -88,6 +95,16 @@ function getTwoRandomNumbers() {
 	return randomNumbers;
 }
 
+// parse user input
+// takes a String array as input, parses it as number using the individual digits
+function parseGuess(guess) {
+  let total = "";
+  for (let i = 0; i < guess.length; i++) {
+    sum += guess[i];
+  }
+  return total;
+}
+
 // TEST CODE
 view.displayMessage("hello world");
 view.displayScore("Poäng: 100");
@@ -99,3 +116,6 @@ view.clearTextbox();
 
 view.addToTextbox(5);
 view.addToTextbox(1);
+
+let numbers = [1,1,5];
+console.log(parseGuess(numbers));
