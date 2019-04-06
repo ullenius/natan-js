@@ -14,9 +14,44 @@ let model = {
     if (subtraction) {
       return (answer === (numberOne - numberTwo));
     }
-    // addition
-    return (answer === (numberOne + numberTwo));
+    return (answer === (numberOne + numberTwo)); // addition is default behaviour
   },
+  /* generates the mathematical problem and puts it in the DOM */
+  generateQuestion : function() {
+
+    let randomNumbers = getTwoRandomNumbers();
+    let numberOne = randomNumbers[0]; // 2do: change these to -case
+    let numberTwo = randomNumbers[1];
+    /**
+    * Randomize addition or subtraction. 50% proability
+    * Generates a random number 0 or 1
+    * Javascript converts it to a boolean, 0 == false, 1 == true
+    *
+    * true == do addition
+    * false == do subtraction
+    *
+    * The program avoids negative results when doing subtraction
+    * in order to make it easier for kids
+    *
+    */
+    if (Math.floor(Math.random() * 2)) { // true or false, 0 or 1
+        this.subtraction = false;
+        this.numberOne = numberOne;
+        this.numberTwo = numberTwo;
+        view.displayQuestion(this.numberOne + " + " + this.numberTwo + " = ?");
+    } else { // subtraction
+      this.subtraction = true;
+      if (numberOne >= numberTwo) {
+        view.displayQuestion(numberOne + " - " + numberTwo + " = ?")
+        this.numberOne = numberOne; // reverse the ordering
+        this.numberTwo = numberTwo;
+      } else {
+        view.displayQuestion(numberTwo + " - " + numberOne + " = ?");
+        this.numberOne = numberTwo; // reverse the ordering
+        this.numberTwo = numberOne;
+      }
+    }
+  }
 };
 
 // View in MVC
@@ -100,7 +135,7 @@ function getTwoRandomNumbers() {
 function parseGuess(guess) {
   let total = "";
   for (let i = 0; i < guess.length; i++) {
-    sum += guess[i];
+    total += guess[i];
   }
   return total;
 }
@@ -119,3 +154,6 @@ view.addToTextbox(1);
 
 let numbers = [1,1,5];
 console.log(parseGuess(numbers));
+
+model.generateQuestion();
+console.log("model === " + JSON.stringify(model));
