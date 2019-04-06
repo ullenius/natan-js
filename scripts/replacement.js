@@ -4,27 +4,37 @@
 *
 */
 const DEFAULT_NUMBER = -1;
-const NO_QUESTIONS_PER_GAME = 10;
+const NO_QUESTIONS = 10;
 
 let model = {
-  userInput : [],
+  userInput : [""],
   numberOne : DEFAULT_NUMBER,
   numberTwo : DEFAULT_NUMBER,
-  numQuestions: QUESTIONS_PER_GAME,
+  numQuestions: NO_QUESTIONS,
   subtraction: false, // if true, addition will be used
   clear : function() { // resets values to default
     this.numberOne = DEFAULT_NUMBER;
     this.numberTwo = DEFAULT_NUMBER;
+    this.userInput = [""];
   },
-  isAnswerCorrect : function(answer) { // returns boolean
-    if (subtraction) {
-      return (answer === (numberOne - numberTwo));
+  addToUserInput : function(digit) {
+    this.userInput.push(digit);
+  },
+  isAnswerCorrect : function(answer) { //
+    /*
+     * Returns a boolean
+     *
+     * Parameter *MUST* to be a Number, Strings will fail due to use of
+     * strict comparison
+     *
+     */
+    if (this.subtraction) {
+      return (answer === (this.numberOne - this.numberTwo));
     }
-    return (answer === (numberOne + numberTwo)); // addition is default behaviour
+    return (answer === (this.numberOne + this.numberTwo)); // addition is default behaviour
   },
   /* generates the mathematical problem and puts it in the DOM */
   generateQuestion : function() {
-
     let randomNumbers = getTwoRandomNumbers();
     let numberOne = randomNumbers[0]; // 2do: change these to -case
     let numberTwo = randomNumbers[1];
@@ -57,6 +67,7 @@ let model = {
         this.numberTwo = numberOne;
       }
     }
+    console.log(JSON.stringify(model));
   }
 };
 
@@ -138,57 +149,77 @@ function getTwoRandomNumbers() {
 
 // parse user input
 // takes a String array as input, parses it as number using the individual digits
+// returns a NUMBER not a String
 function parseGuess(guess) {
   let total = "";
   for (let i = 0; i < guess.length; i++) {
     total += guess[i];
   }
-  return total;
+  return Number(total);
 }
 
+// CONTROLLER in MVC
 let controller = {
   counter : 0,
   points : 0,
-  startGame : function() { // when start-button is clicked
-    model.clear();
-    this.counter = 0;
+  no_questions: 10, // default value
+  startGame : function(no_questions) { // when start-button is clicked
+    view.clearTextbox();
+    this.counter = 1;
     this.points = 0;
     view.showButton(false,"start-button");
     view.showButton(true,"calculate-button")
     this.playGame();
   },
   playGame : function() {
-    if (counter < NO_QUESTIONS_PER_GAME) {
-      counter++;
+    model.clear(); // resetting model
+    view.clearTextbox(); // clear input box
+
+    if (this.counter <= this.no_questions) {
       model.generateQuestion();
+      console.log("counter === " + this.counter); // debug message
+    } else if (this.counter === this.no_questions) { // game is finished
+      view.showButton(true,"start-button");
+      view.showButton(false,"calculate-button");
     }
   },
   submitAnswer : function() {
     let userAnswer = parseGuess(model.userInput);
     if (model.isAnswerCorrect(userAnswer)) {
       this.points++;
-
+      view.displayMessage("Correct answer! Well done :)");
+    } else { // wrong answer
+      view.displayMessage("Wrong answer :(");
     }
+    this.counter++;
+    view.displayScore("Score: " + this.points + "/" + NO_QUESTIONS);
+    this.playGame(); // continue with the next question
+  },
+  addDigit : function(digit) {
+    view.addToTextbox(digit);
+    model.addToUserInput(digit);
   }
-}
+};
 
+// event handler when page loads for the first time
+window.onload = controller.startGame();
 
 // TEST CODE -------------------------------------------------------
-view.displayMessage("hello world");
-view.displayScore("Poäng: 100");
-view.displayQuestion("1 +1 = ?");
-
+// view.displayMessage("hello world");
+// view.displayScore("Poäng: 100");
+// view.displayQuestion("1 +1 = ?");
+//
 view.clearTextbox();
 // clearQuestionbox();
 // clearMessagebox();
-
-view.addToTextbox(5);
-view.addToTextbox(1);
-
-let numbers = [1,1,5];
-console.log(parseGuess(numbers));
-
-model.generateQuestion();
+//
+// view.addToTextbox(5);
+// view.addToTextbox(1);
+//
+// let numbers = [1,1,5];
+// console.log(parseGuess(numbers));
+//
+// model.generateQuestion();
 console.log("model === " + JSON.stringify(model));
 
 // END OF TEST CODE -------------------------------------------------------

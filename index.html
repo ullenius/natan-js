@@ -9,27 +9,27 @@
 
   <body>
     <main>
-      <p><button type="button" onClick="addDigit(7)">7</button>
-        <button type="button" onClick="addDigit(8)">8</button>
-        <button type="button" onClick="addDigit(9)">9</button>
+      <p><button type="button" onClick="controller.addDigit(7)">7</button>
+        <button type="button" onClick="controller.addDigit(8)">8</button>
+        <button type="button" onClick="controller.addDigit(9)">9</button>
       </p>
       <p>
-        <button type="button" onClick="addDigit(4)">4</button>
-        <button type="button" onClick="addDigit(5)">5</button>
-        <button type="button" onClick="addDigit(6)">6</button>
+        <button type="button" onClick="controller.addDigit(4)">4</button>
+        <button type="button" onClick="controller.addDigit(5)">5</button>
+        <button type="button" onClick="controller.addDigit(6)">6</button>
       </p>
       <p>
-        <button type="button" onClick="addDigit(1)">1</button>
-        <button type="button" onClick="addDigit(2)">2</button>
-        <button type="button" onClick="addDigit(3)">3</button>
+        <button type="button" onClick="controller.addDigit(1)">1</button>
+        <button type="button" onClick="controller.addDigit(2)">2</button>
+        <button type="button" onClick="controller.addDigit(3)">3</button>
       </p>
       <p>
-        <button type="button" onClick="addDigit(0)">0</button>
+        <button type="button" onClick="controller.addDigit(0)">0</button>
         <span id="calculate-button" class="calculate-span">
-        <button type="button" onClick="calculate()" class="half-size">DONE</button>
+        <button type="button" onClick="controller.submitAnswer()" class="half-size">DONE</button>
       </span>
         <span id="start-button">
-          <button type="button" onClick="startGame(10)" class="half-size">START</button>
+          <button type="button" onClick="controller.startGame()" class="half-size">START</button>
         </span>
       </p>
 
