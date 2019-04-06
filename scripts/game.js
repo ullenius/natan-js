@@ -1,218 +1,203 @@
-/* Written by Anosh D. Ullenius 2019-03-29 */
+/* natan-js - number game for kids
+* https://www.github.com/ullenius/natan-js
+*
+* Written by Anosh D. Ullenius in 2019
+*
+*/
+const DEFAULT_NUMBER = -1;
 
-var calculator = {
-  userInput: [], // stored as a string
-  sum: 0, // change name to userAnswer or similar
-  correctAnswer: 0,
-  clear : function() { // restore everything to default values
-    this.userInput = [];
-    this.sum = 0;
-    this.correctAnswer = 0;
+let model = {
+  userInput : [""],
+  numberOne : DEFAULT_NUMBER,
+  numberTwo : DEFAULT_NUMBER,
+  subtraction: false, // if true, addition will be used
+  clear : function() { // resets values to default
+    this.numberOne = DEFAULT_NUMBER;
+    this.numberTwo = DEFAULT_NUMBER;
+    this.userInput = [""];
+  },
+  addToUserInput : function(digit) {
+    this.userInput.push(digit);
+  },
+  isAnswerCorrect : function(answer) { //
+    /*
+     * Returns a boolean
+     *
+     * Parameter *MUST* to be a Number, Strings will fail due to use of
+     * strict comparison
+     */
+    if (this.subtraction) {
+      return (answer === (this.numberOne - this.numberTwo));
+    }
+    return (answer === (this.numberOne + this.numberTwo)); // addition is default behaviour
+  },
+  /* generates the mathematical problem and puts it in the DOM */
+  generateQuestion : function() {
+    let randomNumbers = getTwoRandomNumbers();
+    let numberOne = randomNumbers[0]; // 2do: change these to -case
+    let numberTwo = randomNumbers[1];
+    /**
+    * Randomize addition or subtraction. 50% proability
+    * Generates a random number 0 or 1
+    * Javascript converts it to a boolean, 0 == false, 1 == true
+    *
+    * true == do addition
+    * false == do subtraction
+    *
+    * The program avoids negative results when doing subtraction
+    * in order to make it easier for kids
+    *
+    */
+    if (Math.floor(Math.random() * 2)) { // true or false, 0 or 1
+        this.subtraction = false;
+        this.numberOne = numberOne;
+        this.numberTwo = numberTwo;
+        view.displayQuestion(this.numberOne + " + " + this.numberTwo + " = ?");
+    } else { // subtraction
+      this.subtraction = true;
+      if (numberOne >= numberTwo) {
+        view.displayQuestion(numberOne + " - " + numberTwo + " = ?")
+        this.numberOne = numberOne; // reverse the ordering
+        this.numberTwo = numberTwo;
+      } else {
+        view.displayQuestion(numberTwo + " - " + numberOne + " = ?");
+        this.numberOne = numberTwo; // reverse the ordering
+        this.numberTwo = numberOne;
+      }
+    }
+    console.log(JSON.stringify(model));
   }
 };
 
-let repetitions;
-let counter = 0;
-let points = 0;
-window.onload = showButton(false,"calculate-button");
-
-/*
- * This function is asynchronously called by the user
- * when clicking on the digit-buttons
- *
- */
-function addDigit(number) {
-  calculator.userInput.push(number);
-  addToTextbox(number);
-
-  console.log(calculator.userInput);
-  console.log("length = " + calculator.userInput.length);
-}
-
-/*
- * this method is asynchronously called by the
- * user when clicking the "KLAR"-button (swedish for 'done/finished')
- *
- * iterates through the input array. Converts it to a number
- * also contains the iteration loop for the game
- */
-function calculate() {
-  for (var pos in calculator.userInput) {
-    calculator.sum += '' + calculator.userInput[pos];
-  }
-  calculator.userInput = []; // emptying the array
-  console.log("contents of array: " + calculator.userInput);
-
-  calculator.sum = Number(calculator.sum);
-  console.log("sum === " + calculator.sum);
-
-  printVictoryMessage(calculator.sum === calculator.correctAnswer); // send boolean to this method
-  calculator.sum = 0; // reset value before next turn
-
-  clearTextbox();
-
-  console.log("counter == " + counter);
-  console.log("repetitions == " + repetitions);
-
-  if (counter < repetitions) {
-    counter++;
-    generateQuestion();
-  } else {
-    showButton(true,"start-button");
-    showButton(false,"calculate-button");
-    points = 0; // set them to default values once again
-    counter = 0;
-  }
-}
-
-/*
-* Helper function.
-* Prints win/lose message based on validity of the answer
-*
-*/
-function printVictoryMessage(result) {
-
-  let victoryMessage = document.getElementById("victory-message");
-  let pointsMessage = document.getElementById("points");
-  let message;
-
-  console.log("result === " + result);
-
-  if (result === true) {
-    message = "Correct answer! Well done :)";
-    points++;
-  } else {
-    message = "Wrong answer :(";
-  }
-
-  victoryMessage.innerHTML = message;
-  pointsMessage.innerHTML = "Score: " + points + "/" + Number(counter+1) // 3 == total number of questions
-}
-
-/* Helper function */
-function clearMessagebox() {
-  let victoryMessage = document.getElementById("victory-message");
-  let pointsMessage = document.getElementById("points");
-  victoryMessage.innerHTML = "";
-  pointsMessage.innerHTML = "";
-}
-
-/* Helper function */
-function clearTextbox() {
+// View in MVC
+// handles displaying everything on the DOM
+let view = {
+  displayMessage : function(message) { // displays message & score
+    let resultMessage = document.getElementById("victory-message"); // need to rename this HTML-element
+		resultMessage.innerHTML = message;
+  },
+  displayScore : function(message) {
+    let pointsMessage = document.getElementById("points");
+    pointsMessage.innerHTML = message;
+  },
+  displayQuestion : function(mathsProblem) {
+    let question = document.getElementById("question");
+    question.innerHTML = mathsProblem;
+  },
+  addToTextbox : function(digit) { // adds digit when user clicks a button
+    let textbox = document.getElementById("textbox");
+		textbox.value += digit;
+  },
+  clearTextbox : function() {
   let textbox = document.getElementById("textbox");
   textbox.value = "";
-}
-
-/* Helper function */
-function addToTextbox(number) {
-  let textbox = document.getElementById("textbox");
-  textbox.value += number;
-}
-
-/* generates the mathematical problem and puts it in the DOM */
-function generateQuestion() {
-
-  let randomNumbers = getTwoRandomNumbers();
-  const numberOne = randomNumbers[0]; // 2do: change these to upper-case
-  const numberTwo = randomNumbers[1];
-  let question = document.getElementById("question");
-
-  /**
-  * Randomize addition or subtraction. 50% proability
-  * Generates a random number 0 or 1
-  * Javascript converts it to a boolean, 0 == false, 1 == true
-  *
-  * true == do addition
-  * false == do subtraction
-  *
-  * The program avoids negative results when doing subtraction
-  * in order to make it easier for kids
-  *
-  */
-  if (Math.floor(Math.random() *2)) { // true or false, 0 or 1
-      question.innerHTML = numberOne + " + " + numberTwo + " = ?";
-      calculator.correctAnswer = numberOne + numberTwo;
-  } else {
-
-    if (numberOne >= numberTwo) {
-      question.innerHTML = numberOne + " - " + numberTwo + " = ?";
-      calculator.correctAnswer = numberOne - numberTwo;
+  },
+  showButton : function(showButton,buttonName) { // (boolean,string)
+    /*
+    * Switches visibility on and off for button
+    */
+    var button = document.getElementById(buttonName);
+    if (showButton === true) {
+      button.style.visibility = "visible";
     } else {
-      question.innerHTML = numberTwo + " - " + numberOne + " = ?";
-      calculator.correctAnswer = numberTwo - numberOne;
+      button.style.visibility = "hidden";
     }
   }
+};
 
-  console.log(numberOne);
-  console.log(numberTwo);
-  console.log("answer: " + calculator.correctAnswer);
+// Helper function - clears everything in the View
+function clearAll() {
+  view.clearTextbox();
+  view.displayMessage("");
+  view.displayQuestion("");
+  view.displayScore("Score: " + controller.points + "/" + controller.no_questions);
 }
 
 /*
-* Helper function
-* Switches visibility on and off for the start-button
-*/
-function showButton(showButton,buttonName) { // boolean
-
-  let button = document.getElementById(buttonName);
-  if (showButton === true) {
-    button.style.visibility = "visible";
-  } else {
-    button.style.visibility = "hidden";
-  }
-}
-
-/*
-  * Random comparator, used for randomized sorting (lambda)
-  * is used by getTwoRandomNumbers
-  */
+ * Random comparator, used for randomized sorting (lambda)
+ * is used by getTwoRandomNumbers
+ */
 var randomComparator = function(numberOne, numberTwo) {
 
-  if (numberOne === undefined || numberTwo === undefined) {
-    alert("Incorrect input!");
-  }
-  if ((Math.floor(Math.random() *2)) == true) {
-    return numberOne - numberTwo;
-  }
-  else {
-    return numberTwo - numberOne;
-  }
+	if (numberOne === undefined || numberTwo === undefined) {
+		alert("Incorrect input!");
+	}
+	if ((Math.floor(Math.random() *2)) == true) {
+		return numberOne - numberTwo;
+	}
+	else {
+		return numberTwo - numberOne;
+	}
 }
-
 /*
  * Returns an array
  *
-*/
-function getTwoRandomNumbers() {
-
-  const UPPER_LIMIT_ONE = 10;
-  const UPPER_LIMIT_TWO = 29;
-  let randomNumbers = [];
-
-  randomNumbers[0] = Math.ceil(Math.random() * UPPER_LIMIT_ONE);
-  randomNumbers[1] = Math.ceil(Math.random() * UPPER_LIMIT_TWO);
-  randomNumbers.sort(randomComparator);
-
-  return randomNumbers;
-}
-
-/*
-  * Starts the game and cleans up DOM's and used variables
-  * in the calculator-object.
-  *
-  * This function is called asynchronously by the user
-  * when clicking the Start-button.
-  *
  */
-function startGame(numberOfQuestions) {
+function getTwoRandomNumbers() {
+	const UPPER_LIMIT_ONE = 10;
+	const UPPER_LIMIT_TWO = 29;
+	let randomNumbers = [];
 
-  console.log("numberOfQuestions = " + numberOfQuestions);
-  repetitions = numberOfQuestions - 1;
-  calculator.clear();
-
-  clearMessagebox();
-  clearTextbox();
-  showButton(false,"start-button");
-  showButton(true,"calculate-button");
-  generateQuestion(); // debug-stuff
+	randomNumbers[0] = Math.ceil(Math.random() * UPPER_LIMIT_ONE);
+	randomNumbers[1] = Math.ceil(Math.random() * UPPER_LIMIT_TWO);
+	randomNumbers.sort(randomComparator);
+	return randomNumbers;
 }
+
+// parse user input
+// takes a String array as input, parses it as number using the individual digits
+// returns a NUMBER not a String
+function parseGuess(guess) {
+  let total = "";
+  for (let i = 0; i < guess.length; i++) {
+    total += guess[i];
+  }
+  return Number(total);
+}
+
+// CONTROLLER in MVC
+let controller = {
+  counter : 0,
+  points : 0,
+  no_questions: 10, // default value
+  startGame : function(no_questions) { // when start-button is clicked
+    this.counter = 0;
+    this.points = 0;
+    this.no_questions = no_questions;
+    clearAll(); // clears the view
+    view.showButton(false,"start-button");
+    view.showButton(true,"calculate-button")
+    this.playGame();
+  },
+  playGame : function() {
+    model.clear(); // resetting model
+    view.clearTextbox(); // clear input box
+    this.counter++;
+
+    if (this.counter <= this.no_questions) {
+      model.generateQuestion();
+      console.log("counter === " + this.counter); // debug message
+    } else if (this.counter > this.no_questions) { // game is finished
+      view.showButton(true,"start-button");
+      view.showButton(false,"calculate-button");
+    }
+  },
+  submitAnswer : function() {
+    let userAnswer = parseGuess(model.userInput);
+    if (model.isAnswerCorrect(userAnswer)) {
+      this.points++;
+      view.displayMessage("Correct answer! Well done :)");
+    } else { // wrong answer
+      view.displayMessage("Wrong answer :(");
+    }
+    view.displayScore("Score: " + this.points + "/" + this.no_questions);
+    this.playGame(); // continue with the next question
+  },
+  addDigit : function(digit) {
+    view.addToTextbox(digit);
+    model.addToUserInput(digit);
+  }
+};
+
+// event handler when page loads for the first time
+window.onload = controller.startGame(10);
