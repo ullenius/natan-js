@@ -6,6 +6,7 @@
 */
 const DEFAULT_NUMBER = -1;
 
+// Model in MVC
 let model = {
   userInput : [""],
   numberOne : DEFAULT_NUMBER,
@@ -69,8 +70,7 @@ let model = {
   }
 };
 
-// View in MVC
-// handles displaying everything on the DOM
+// View in MVC - handles displaying things in the DOM
 let view = {
   displayMessage : function(message) { // displays message & score
     let resultMessage = document.getElementById("victory-message"); // need to rename this HTML-element
@@ -96,7 +96,7 @@ let view = {
     /*
     * Switches visibility on and off for button
     */
-    var button = document.getElementById(buttonName);
+    let button = document.getElementById(buttonName);
     if (showButton === true) {
       button.style.visibility = "visible";
     } else {
@@ -117,7 +117,7 @@ function clearAll() {
  * Random comparator, used for randomized sorting (lambda)
  * is used by getTwoRandomNumbers
  */
-var randomComparator = function(numberOne, numberTwo) {
+let randomComparator = function(numberOne, numberTwo) {
 
 	if (numberOne === undefined || numberTwo === undefined) {
 		alert("Incorrect input!");
@@ -131,7 +131,6 @@ var randomComparator = function(numberOne, numberTwo) {
 }
 /*
  * Returns an array
- *
  */
 function getTwoRandomNumbers() {
 	const UPPER_LIMIT_ONE = 10;
@@ -144,9 +143,9 @@ function getTwoRandomNumbers() {
 	return randomNumbers;
 }
 
-// parse user input
-// takes a String array as input, parses it as number using the individual digits
-// returns a NUMBER not a String
+// Parses user input.
+// Takes a String array as input, parses it as number using the individual digits.
+// Returns a NUMBER not a String
 function parseGuess(guess) {
   let total = "";
   for (let i = 0; i < guess.length; i++) {
