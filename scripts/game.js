@@ -58,7 +58,7 @@ let model = {
       this.subtraction = true;
       if (numberOne >= numberTwo) {
         view.displayQuestion(numberOne + " - " + numberTwo + " = ?")
-        this.numberOne = numberOne; // reverse the ordering
+        this.numberOne = numberOne;
         this.numberTwo = numberTwo;
       } else {
         view.displayQuestion(numberTwo + " - " + numberOne + " = ?");
@@ -66,7 +66,7 @@ let model = {
         this.numberTwo = numberOne;
       }
     }
-    console.log(JSON.stringify(model));
+    console.log(JSON.stringify(model)); //debug
   }
 };
 
@@ -158,8 +158,8 @@ function parseGuess(guess) {
 let controller = {
   counter : 0,
   points : 0,
-  no_questions: 10, // default value
-  startGame : function(no_questions) { // when start-button is clicked
+  no_questions: 0,
+  startGame : function(no_questions = 10) { // when start-button is clicked
     this.counter = 0;
     this.points = 0;
     this.no_questions = no_questions;
